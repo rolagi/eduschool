@@ -4,14 +4,21 @@
 
 {% block body %}
 
-    <h1>Application EduSchool</h1>
+    <div class="center">
 
-    <ul>
-        <li>
-        </li>
+        <h1 class="carlito-bold">Accueil de l'application EduSchool</h1>
 
-        <li>
-        </li>
-    </ul>
+        <p class="carlito-regular">
+            {% if app.user %}
+                Bonjour, {{ app.user.prenom }}.
+            {% else %}
+                Bonjour, vous n'êtes pas connecté.
+            {% endif %}
+        </p>
+
+
+    </div>
+
+
 
 {% endblock %}

@@ -1,6 +1,6 @@
 <header>
 
-    <h1 id="titre" class="carlito-bold">EduSchool</h1>
+    <a href="{{ path('app_accueil') }}"><h1 id="titre" class="carlito-bold">EduSchool</h1></a>
 
     <div id="contenuEntete">
         <nav>
@@ -9,8 +9,8 @@
                 <a>Gestion des professeurs</a>
                 <a>Gestion des notes</a>
             {% elseif is_granted('ROLE_ELEVE') %}
-                <a>Consulter les notes</a>
-                <a>Consulter ses professeurs</a>
+                <a>Consulter vos notes</a>
+                <a>Consulter vos professeurs</a>
             {% endif %}
         </nav>
 
@@ -20,13 +20,9 @@
                 <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
             </svg>
             {% if app.user %}
-                {% if is_granted('ROLE_PROFESSEUR') %}
-                    PROFE
-                {% else %}
-                    ELEVE
-                {% endif %}
+                <a href="{{ path('app_logout') }}"><p class="carlito-regular">{{ app.user.nomUtilisateur }}</p></a>
             {% else %}
-                <p class="carlito-regular">Se connecter</p>
+                <a href="{{ path('app_login') }}"><p class="carlito-regular">Se connecter</p></a>
             {% endif %}
         </div>
     </div>

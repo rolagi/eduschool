@@ -8,7 +8,6 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
-/*
 #[ORM\InheritanceType("SINGLE_TABLE")]
 #[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
 #[ORM\DiscriminatorMap([
@@ -16,7 +15,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
     'eleve' => 'Eleve',
     'professeur' => 'Professeur',
 ])]
-*/
 abstract class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -73,7 +71,7 @@ abstract class Utilisateur implements UserInterface, PasswordAuthenticatedUserIn
      */
     public function getUsername(): string
     {
-        return (string) $this->nomUtilisateur;
+        return $this->nomUtilisateur;
     }
 
     /**
@@ -82,8 +80,7 @@ abstract class Utilisateur implements UserInterface, PasswordAuthenticatedUserIn
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = 'ROLE_ELEVE';
 
         return array_unique($roles);
     }

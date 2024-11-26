@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Enum\Niveau;
 use App\Repository\ClasseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ClasseRepository::class)]
 class Classe
@@ -19,11 +19,11 @@ class Classe
     #[ORM\Column(length: 255, unique: true)]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 255, enumType: Niveau::class)]
-    private ?string $niveau = null;
-
     #[ORM\OneToMany(mappedBy: 'classe', targetEntity: Eleve::class)]
     private Collection $eleves;
+
+    #[ORM\ManyToOne(inversedBy: 'classes')]
+    private ?Niveau $niveau = null;
 
     public function __construct()
     {
@@ -43,18 +43,6 @@ class Classe
     public function setNom(string $nom): static
     {
         $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getNiveau(): ?string
-    {
-        return $this->niveau;
-    }
-
-    public function setNiveau(string $niveau): static
-    {
-        $this->niveau = $niveau;
 
         return $this;
     }
@@ -85,6 +73,18 @@ class Classe
                 $elefe->setClasse(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNiveau(): ?Niveau
+    {
+        return $this->niveau;
+    }
+
+    public function setNiveau(?Niveau $niveau): static
+    {
+        $this->niveau = $niveau;
 
         return $this;
     }

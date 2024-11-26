@@ -98,10 +98,38 @@ nav a{
     padding: 10px;
 }
 
-#contenu {
-    display: none;
-    margin-top: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    background-color: #f9f9f9;
+#eleves{
+    margin-top : 20px;
 }
+
+#eleves div{
+    background-color:lightgrey;
+}
+
+#eleves button{
+    background-color:lightgrey;
+}
+
+.niveau{
+    margin: 10px 0px;
+}
+
+.niveau > *{
+    width: 100%;
+}
+
+.niveau > div{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.classe {
+    border: 1px solid darkgrey;
+    padding: 2px;
+    text-align: center;
+}
+
+.classe button{
+    width: 100%;
+}
+

@@ -6,23 +6,36 @@
 
     <h1>Page de gestion des élèves</h1>
 
-    {% for classe in classes %}
-        <div>
-            <button onclick="toggleContent({{ loop.index }})">{{ classe.nom }}</button>
-            <div id="content-{{ loop.index }}" class="content">
-                <p></p>
+    <div id="eleves">
+        {% for niveau in niveaux %}
+            <div class="niveau">
+                <button class="carlito-bold toggle" id="niveau"><h2>{{ niveau.nom }}</h2></button>
+                <div>
+                    {% for classe in niveau.classes %}
+                        <div class="classe">
+                            <button class="carlito-bold toggle" id="classe"><h2>{{ classe.nom }}</h2></button>
+                            <div style="display: none;">
+                                {% for eleve in classe.eleves %}
+                                    <a href="{{ path('app_eleve_show',{{ eleve.id }}) }}"><p class="carlito-regular" id="eleve">{{ eleve.prenom }} {{ eleve.nom }}</p></a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
 
     <script>
-        function toggleContent(index) {
-            var content = document.getElementById('content-' + index);
-            if (content.style.display === 'none') {
-                content.style.display = 'block';
-            } else {
-                content.style.display = 'none';
-            }
-        }
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".toggle").forEach(function (toggleElement) {
+                toggleElement.addEventListener("click", function () {
+                    const content = this.nextElementSibling;
+                    if (content) {
+                        content.style.display = content.style.display === "none" ? "block" : "none";
+                    }
+                });
+            });
+        });
     </script>
 {% endblock %}

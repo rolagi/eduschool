@@ -1,0 +1,6 @@
+api_platform:
+    title: 'API de gestion des notes'
+    description: 'Une API pour gérer les notes des élèves'
+    version: '1.0.0'
+    mapping:
+        paths: ['%kernel.project_dir%/src/Entity']

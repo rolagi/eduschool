@@ -97,3 +97,11 @@ nav a{
     border-radius: 10px;
     padding: 10px;
 }
+
+#contenu {
+    display: none;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+}

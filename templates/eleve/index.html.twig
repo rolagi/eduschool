@@ -4,6 +4,25 @@
 
 {% block body %}
 
-    <h1>Page de gestion</h1>
+    <h1>Page de gestion des élèves</h1>
 
+    {% for classe in classes %}
+        <div>
+            <button onclick="toggleContent({{ loop.index }})">{{ classe.nom }}</button>
+            <div id="content-{{ loop.index }}" class="content">
+                <p></p>
+            </div>
+        </div>
+    {% endfor %}
+
+    <script>
+        function toggleContent(index) {
+            var content = document.getElementById('content-' + index);
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+            } else {
+                content.style.display = 'none';
+            }
+        }
+    </script>
 {% endblock %}

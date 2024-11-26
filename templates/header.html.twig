@@ -5,7 +5,7 @@
     <div id="contenuEntete">
         <nav>
             {% if is_granted('ROLE_PROFESSEUR') %}
-                <a>Gestion des élèves</a>
+                <a href="{{ path('app_eleve') }}">Gestion des élèves</a>
                 <a>Gestion des professeurs</a>
                 <a>Gestion des notes</a>
             {% elseif is_granted('ROLE_ELEVE') %}

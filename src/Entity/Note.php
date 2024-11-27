@@ -2,35 +2,47 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\NoteRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: NoteRepository::class)]
-#[ApiResource(
-    operations: [
-        new GetCollection()
-    ]
-)]
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\NoteRepository")
+ * @ApiResource()
+ */
 class Note
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    private $id;
 
-    #[ORM\Column]
-    private ?float $note = null;
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $note;
 
-    #[ORM\ManyToOne(inversedBy: 'notes')]
-    private ?Professeur $evaluateur = null;
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Professeur", inversedBy="notes")
+     */
+    private $evaluateur;
 
-    #[ORM\ManyToOne(inversedBy: 'notes')]
-    private ?Eleve $eleve = null;
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Eleve", inversedBy="notes")
+     */
+    private $eleve;
 
-    #[ORM\ManyToOne(inversedBy: 'notes')]
-    private ?Matiere $matiere = null;
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Matiere", inversedBy="notes")
+     */
+    private $matiere;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $commentaire;
 
     public function getId(): ?int
     {
@@ -42,7 +54,7 @@ class Note
         return $this->note;
     }
 
-    public function setNote(float $note): static
+    public function setNote(float $note)
     {
         $this->note = $note;
 
@@ -54,7 +66,7 @@ class Note
         return $this->evaluateur;
     }
 
-    public function setEvaluateur(?Professeur $evaluateur): static
+    public function setEvaluateur(?Professeur $evaluateur)
     {
         $this->evaluateur = $evaluateur;
 
@@ -66,7 +78,7 @@ class Note
         return $this->eleve;
     }
 
-    public function setEleve(?Eleve $eleve): static
+    public function setEleve(?Eleve $eleve)
     {
         $this->eleve = $eleve;
 
@@ -78,9 +90,21 @@ class Note
         return $this->matiere;
     }
 
-    public function setMatiere(?Matiere $matiere): static
+    public function setMatiere(?Matiere $matiere)
     {
         $this->matiere = $matiere;
+
+        return $this;
+    }
+
+    public function getCommentaire(): ?string
+    {
+        return $this->commentaire;
+    }
+
+    public function setCommentaire(?string $commentaire): self
+    {
+        $this->commentaire = $commentaire;
 
         return $this;
     }

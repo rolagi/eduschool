@@ -7,23 +7,34 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
-
-#[ORM\Entity(repositoryClass: ClasseRepository::class)]
+use ApiPlatform\Core\Annotation\ApiResource;
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\ClasseRepository")
+ * @ApiResource()
+ */
 class Classe
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    private $id;
 
-    #[ORM\Column(length: 255, unique: true)]
-    private ?string $nom = null;
+    /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     */
+    private $nom;
 
-    #[ORM\OneToMany(mappedBy: 'classe', targetEntity: Eleve::class)]
-    private Collection $eleves;
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Eleve", mappedBy="classe")
+     */
+    private $eleves;
 
-    #[ORM\ManyToOne(inversedBy: 'classes')]
-    private ?Niveau $niveau = null;
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Niveau", inversedBy="classes")
+     */
+    private $niveau;
 
     public function __construct()
     {
@@ -40,7 +51,7 @@ class Classe
         return $this->nom;
     }
 
-    public function setNom(string $nom): static
+    public function setNom(string $nom)
     {
         $this->nom = $nom;
 
@@ -55,7 +66,7 @@ class Classe
         return $this->eleves;
     }
 
-    public function addElefe(Eleve $elefe): static
+    public function addElefe(Eleve $elefe)
     {
         if (!$this->eleves->contains($elefe)) {
             $this->eleves->add($elefe);
@@ -65,7 +76,7 @@ class Classe
         return $this;
     }
 
-    public function removeElefe(Eleve $elefe): static
+    public function removeElefe(Eleve $elefe)
     {
         if ($this->eleves->removeElement($elefe)) {
             // set the owning side to null (unless already changed)
@@ -82,7 +93,7 @@ class Classe
         return $this->niveau;
     }
 
-    public function setNiveau(?Niveau $niveau): static
+    public function setNiveau(?Niveau $niveau)
     {
         $this->niveau = $niveau;
 

@@ -2,35 +2,31 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\EleveRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: EleveRepository::class)]
-#[ApiResource]
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\EleveRepository")
+ * @ApiResource()
+ */
 class Eleve extends Utilisateur
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="eleve")
+     */
+    private $notes;
 
-    #[ORM\OneToMany(mappedBy: 'eleve', targetEntity: Note::class)]
-    private Collection $notes;
-
-    #[ORM\ManyToOne(inversedBy: 'eleves')]
-    private ?Classe $classe = null;
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Classe", inversedBy="eleves")
+     */
+    private $classe;
 
     public function __construct()
     {
         $this->notes = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     /**
@@ -41,7 +37,7 @@ class Eleve extends Utilisateur
         return $this->notes;
     }
 
-    public function addNote(Note $note): static
+    public function addNote(Note $note)
     {
         if (!$this->notes->contains($note)) {
             $this->notes->add($note);
@@ -51,7 +47,7 @@ class Eleve extends Utilisateur
         return $this;
     }
 
-    public function removeNote(Note $note): static
+    public function removeNote(Note $note)
     {
         if ($this->notes->removeElement($note)) {
             // set the owning side to null (unless already changed)
@@ -68,7 +64,7 @@ class Eleve extends Utilisateur
         return $this->classe;
     }
 
-    public function setClasse(?Classe $classe): static
+    public function setClasse(?Classe $classe)
     {
         $this->classe = $classe;
 

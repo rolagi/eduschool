@@ -31,10 +31,19 @@ security:
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
 
+    role_hierarchy:
+        ROLE_PROFESSEUR: ROLE_ELEVE
+        ROLE_ELEVE: ROLE_USER
+
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/matieres, roles: ROLE_PROFESSEUR }
+        - { path: ^/professeurs, roles: ROLE_PROFESSEUR }
+        - { path: ^/classes, roles: ROLE_PROFESSEUR }
+        - { path: ^/eleves/\d+$/edit, roles: ROLE_PROFESSEUR }
+        - { path: ^/notes, roles: ROLE_PROFESSEUR }
+        # - { path: ^/eleves, roles: ROLE}
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

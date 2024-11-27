@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une Note{% endblock %}
+
+{% block body %}
+    {% if is_granted('ROLE_PROFESSEUR') %}
+    <h1>Notes de {{ eleve.prenom }} {{ eleve.nom }}</h1>
+
+    {{ form_start(form) }}
+
+    {{ form_label(form.note) }}
+    {{ form_widget(form.note) }}
+    {{ form_errors(form.note) }}
+
+    {{ form_label(form.evaluateur) }}
+    {{ form_widget(form.evaluateur) }}
+    {{ form_errors(form.evaluateur) }}
+
+    {{ form_label(form.matiere) }}
+    {{ form_widget(form.matiere) }}
+    {{ form_errors(form.matiere) }}
+
+    {{ form_label(form.commentaire) }}
+    {{ form_widget(form.commentaire) }}
+    {{ form_errors(form.commentaire) }}
+
+    {{ form_widget(form.save) }}
+
+    {{ form_end(form) }}
+{% endif %}
+
+<table>
+    <tr>
+        <th>Note</th>
+        <th>Évaluateur</th>
+        <th>Matière</th>
+        <th>Commentaire</th>
+        {% if is_granted('ROLE_PROFESSEUR') %}<th>Actions</th>{% endif %}
+    </tr>
+    {% for note in notes %}
+        <tr>
+            <td>{{ note.note }}</td>
+            <td>{{ note.evaluateur.prenom }} {{ note.evaluateur.nom }}</td>
+            <td>{{ note.matiere.nom }}</td>
+            <td>{{ note.commentaire }}</td>
+            {% if is_granted('ROLE_PROFESSEUR') %}
+            <td>
+                <div class="boutonsGestion">
+                    <a href="{{ path('app_note_delete',{id:  note.id}) }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
+                        </svg>
+                    </a>
+                    <a href=""></a>
+                </div>
+            </td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}

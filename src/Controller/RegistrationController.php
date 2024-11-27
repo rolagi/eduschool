@@ -12,7 +12,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class RegistrationController extends AbstractController
 {
-    #[Route('/inscription', name: 'registration')]
+    /**
+     * @Route("/inscription", name="registration")
+ */
     public function index(UserPasswordHasherInterface $passwordHasher, Request $request)
     {
         $form = $this->createForm(UserType::class);
@@ -27,8 +29,8 @@ class RegistrationController extends AbstractController
             }
 
             $user = new Eleve();
-            $user->setNom($form->get('nom')->getData());
-            $user->setPrenom($form->get('prenom')->getData());
+            $user->setNom(ucfirst($form->get('nom')->getData()));
+            $user->setPrenom(ucfirst($form->get('prenom')->getData()));
             $user->setNomUtilisateur($form->get('nomUtilisateur')->getData());
 
             $mdp = $form->get('password')->getData();

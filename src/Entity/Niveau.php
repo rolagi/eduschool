@@ -2,27 +2,35 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\NiveauRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ORM\Entity(repositoryClass: NiveauRepository::class)]
-#[ApiResource]
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\NiveauRepository")
+ * @ApiResource()
+ */
 class Niveau
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    private $id;
 
-    #[ORM\OneToMany(mappedBy: 'niveau', targetEntity: Classe::class)]
-    private Collection $classes;
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Classe", mappedBy="niveau")
+     */
+    private $classes;
 
-    #[ORM\Column(length: 255)]
-    private ?string $nom = null;
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $nom;
 
     public function __construct()
     {
@@ -42,7 +50,7 @@ class Niveau
         return $this->classes;
     }
 
-    public function addClass(Classe $class): static
+    public function addClass(Classe $class)
     {
         if (!$this->classes->contains($class)) {
             $this->classes->add($class);
@@ -52,7 +60,7 @@ class Niveau
         return $this;
     }
 
-    public function removeClass(Classe $class): static
+    public function removeClass(Classe $class)
     {
         if ($this->classes->removeElement($class)) {
             // set the owning side to null (unless already changed)
@@ -69,7 +77,7 @@ class Niveau
         return $this->nom;
     }
 
-    public function setNom(string $nom): static
+    public function setNom(string $nom)
     {
         $this->nom = $nom;
 

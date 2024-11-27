@@ -2,32 +2,26 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ProfesseurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ProfesseurRepository::class)]
-#[ApiResource]
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\ProfesseurRepository")
+ * @ApiResource()
+ */
 class Professeur extends Utilisateur
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
-    #[ORM\OneToMany(mappedBy: 'evaluateur', targetEntity: Note::class)]
-    private Collection $notes;
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="evaluateur")
+     */
+    private $notes;
 
     public function __construct()
     {
         $this->notes = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     /**
@@ -38,7 +32,7 @@ class Professeur extends Utilisateur
         return $this->notes;
     }
 
-    public function addNote(Note $note): static
+    public function addNote(Note $note)
     {
         if (!$this->notes->contains($note)) {
             $this->notes->add($note);
@@ -48,7 +42,7 @@ class Professeur extends Utilisateur
         return $this;
     }
 
-    public function removeNote(Note $note): static
+    public function removeNote(Note $note)
     {
         if ($this->notes->removeElement($note)) {
             // set the owning side to null (unless already changed)

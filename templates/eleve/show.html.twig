@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ eleve.prenom }} {{ eleve.nom }}{% endblock %}
+
+{% block body %}
+        <h1>Modifier les informations de l'élève</h1>
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+
+        <form method="post" action="{{ path('app_eleve_show', { id: eleve.id }) }}">
+            {{ form_start(form) }}
+            <div>
+                {{ form_label(form.nom) }}
+                {{ form_widget(form.nom) }}
+            </div>
+            <div>
+                {{ form_label(form.prenom) }}
+                {{ form_widget(form.prenom) }}
+            </div>
+            <div>
+                {{ form_label(form.nomUtilisateur) }}
+                {{ form_widget(form.nomUtilisateur) }}
+            </div>
+            <div>
+                {{ form_label(form.classe) }}
+                {{ form_widget(form.classe) }}
+            </div>
+            <div>
+                {{ form_widget(form.save, { 'attr': { 'class': 'btn btn-primary' } }) }}
+            </div>
+            {{ form_end(form) }}
+        </form>
+
+    <button onclick="window.location.href='{{ path('app_eleve_notes', {id: eleve.id}) }}'">
+    <p class="carlito-bold">Accéder aux notes de l'étudiant</p>
+        </button>
+
+{% endblock %}

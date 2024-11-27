@@ -2,31 +2,34 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\MatiereRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: MatiereRepository::class)]
-#[ApiResource(
-    operations: [
-        new GetCollection()
-    ]
-)]
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\MatiereRepository")
+ * @ApiResource()
+ */
 class Matiere
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    private $id;
 
-    #[ORM\Column(length: 255, unique: true)]
-    private ?string $nom = null;
+    /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     */
+    private $nom;
 
-    #[ORM\OneToMany(mappedBy: 'matiere', targetEntity: Note::class)]
-    private Collection $notes;
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="matiere")
+     */
+    private $notes;
 
     public function __construct()
     {
@@ -43,7 +46,7 @@ class Matiere
         return $this->nom;
     }
 
-    public function setNom(string $nom): static
+    public function setNom(string $nom)
     {
         $this->nom = $nom;
 
@@ -58,7 +61,7 @@ class Matiere
         return $this->notes;
     }
 
-    public function addNote(Note $note): static
+    public function addNote(Note $note)
     {
         if (!$this->notes->contains($note)) {
             $this->notes->add($note);
@@ -68,7 +71,7 @@ class Matiere
         return $this;
     }
 
-    public function removeNote(Note $note): static
+    public function removeNote(Note $note)
     {
         if ($this->notes->removeElement($note)) {
             // set the owning side to null (unless already changed)

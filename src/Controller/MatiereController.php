@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class MatiereController extends AbstractController
 {
     /**
-     * @Route("/matiere", name="app_matiere")
+     * @Route("/matieres", name="app_matiere")
      */
     public function index(Request $request, EntityManagerInterface $entityManager, MatiereRepository $matiereRepository): Response
     {
@@ -42,7 +42,7 @@ class MatiereController extends AbstractController
     }
 
     /**
-     * @Route("/matiere/{id}", name="app_matiere_delete")
+     * @Route("/matieres/{id}", name="app_matiere_delete")
      */
     public function delete(Request $request, EntityManagerInterface $entityManager, MatiereRepository $matiereRepository, int $id): Response
     {

@@ -95,7 +95,7 @@ class EleveController extends AbstractController
     {
         $eleve = $eleveRepository->find($id);
 
-        if($this->getUser() && $this->getUser()->getUserIdentifier() === $eleve->getUserIdentifier()) {
+        if ($this->isGranted('ROLE_PROFESSEUR') || ($this->getUser() && $this->getUser()->getUserIdentifier() === $eleve->getUserIdentifier())) {
 
             $note = new Note();
             $note->setEleve($eleve);
@@ -115,21 +115,8 @@ class EleveController extends AbstractController
                 'eleve' => $eleve,
                 'notes' => $eleve->getNotes(),
             ]);
-        }else{
+        } else {
             throw $this->createAccessDeniedException('Accès non autorisé');
         }
-    }
-
-    /**
-     * @Route("/notes/{id}/delete", name="app_note_delete")
-     */
-    public function delete(Request $request, EntityManagerInterface $entityManager, NoteRepository $noteRepository, int $id): Response
-    {
-        $note = $noteRepository->find($id);
-
-        $entityManager->remove($note);
-        $entityManager->flush();
-
-        return $this->redirectToRoute('app_eleve_notes', ['id' => $note->getEleve()->getId()]);
     }
 }

@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Ajout d'une note
+{% endblock %}
+
+{% block body %}
+    <div>
+        <h1>Ajouter une nouvelle note</h1>
+        {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_row(form.note, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.evaluateur, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.matiere, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.commentaire, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

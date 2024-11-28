@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Notes de l'élève</title>
 </head>
 <body>
+<main>
+    <h2>Liste des notes de l'élève :</h2>
+    <p id="eleve"></p>
+    <table id="contenu"></table>
 
+    <!-- Formulaire pour ajouter une note -->
+    <h3>Ajouter une note</h3>
+    <form id="ajouterNoteForm">
+        <!-- Champ caché pour l'ID de l'élève -->
+        <input type="hidden" id="eleveId" value="">
+
+        <label for="evaluateur">Sélectionner un évaluateur:</label>
+        <select id="evaluateur" required>
+            <option value="">Choisir un professeur</option>
+        </select>
+
+        <label for="matiere">Sélectionner une matière:</label>
+        <select id="matiere" required>
+            <option value="">Choisir une matière</option>
+        </select>
+
+        <label for="note">Note:</label>
+        <input type="number" id="note" min="0" max="20" required>
+
+        <label for="commentaire">Commentaire:</label>
+        <textarea id="commentaire"></textarea>
+
+        <button type="submit">Ajouter la note</button>
+    </form>
+</main>
+
+<script src="/js/notes.js"></script>
 </body>
 </html>

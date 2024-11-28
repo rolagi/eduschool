@@ -22,12 +22,13 @@ class Matiere
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"matiere:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
-     * @Groups({"matiere:read","matiere:write"})
+     * @Groups({"matiere:read","matiere:write","eleve_note:read"})
      */
     private $nom;
 

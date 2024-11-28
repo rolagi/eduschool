@@ -44,3 +44,4 @@ Dans cette page un professeur peut consulter et modifier les notes de l'élève 
 
 #### Application NodeJS
 
+Les 4 fonctionnalités demandées sont disponibles dans l'application localisée dans le projet NodeJS ``appli_test_api_node``

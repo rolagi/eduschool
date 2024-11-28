@@ -22,12 +22,13 @@ class Note
 
     /**
      * @ORM\Column(type="float")
-     * @Groups({"eleve:read"})
+     * @Groups({"eleve:read","eleve_note:read"})
      */
     private $note;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Professeur", inversedBy="notes")
+     * @Groups({"eleve_note:read"})
      */
     private $evaluateur;
 
@@ -38,11 +39,13 @@ class Note
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Matiere", inversedBy="notes")
+     * @Groups({"eleve_note:read"})
      */
     private $matiere;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"eleve_note:read"})
      */
     private $commentaire;
 

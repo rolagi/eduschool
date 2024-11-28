@@ -34,7 +34,8 @@
         "symfony/twig-bundle": "5.4.*",
         "symfony/validator": "5.4.*",
         "symfony/webpack-encore-bundle": "v1.11.2",
-        "symfony/yaml": "5.4.*"
+        "symfony/yaml": "5.4.*",
+        "ext-json": "*"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.6",

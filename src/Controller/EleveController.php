@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class EleveController extends AbstractController
 {
@@ -136,15 +137,21 @@ class EleveController extends AbstractController
     }
 
     /**
-     * @Route("/api/eleves/search",name="api_eleve_search")
+     * @Route("/api/eleves/search", name="api_eleve_search")
      */
-    public function apiSearch(Request $request, EleveRepository $eleveRepository, ClasseRepository $classeRepository, string $name, string $classe): JsonResponse
+    public function apiSearch(Request $request, EleveRepository $eleveRepository, SerializerInterface $serializer): JsonResponse
     {
         $name = $request->get("name");
-        $idClasse = $request->get("classe");
+        $classe = $request->get("classe");
 
-        $resultat = $eleveRepository->search($name, $idClasse);
+        if (!$name && !$classe) {
+            return new JsonResponse(['error' => 'Au moins un critère de recherche est requis'], 400);
+        }
 
-        return new JsonResponse($resultat);
+        $resultat = $eleveRepository->findByNameAndClasse($name, $classe);
+
+        $data = $serializer->serialize($resultat, 'json', ['groups' => 'eleve:read']);
+
+        return new JsonResponse($data, 200, [], true);
     }
 }

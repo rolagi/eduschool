@@ -25,6 +25,7 @@ abstract class Utilisateur implements UserInterface, PasswordAuthenticatedUserIn
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"eleve:read"})
      */
     private $id;
 
@@ -45,13 +46,13 @@ abstract class Utilisateur implements UserInterface, PasswordAuthenticatedUserIn
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"eleve:read","eleve:write"})
+     * @Groups({"eleve:read","eleve:write","eleve_note:read"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"eleve:read","eleve:write"})
+     * @Groups({"eleve:read","eleve:write","eleve_note:read"})
      */
     private $prenom;
 

@@ -22,21 +22,26 @@ class EleveRepository extends ServiceEntityRepository
         parent::__construct($registry, Eleve::class);
     }
 
-    public function search(string $name = null, Classe $classe = null)
+    public function findByNameAndClasse(string $name = null, string $classe = null): array
     {
-        $requete = $this->createQueryBuilder('u');
+        $queryBuilder = $this->createQueryBuilder('e')
+            ->leftJoin('e.classe', 'c')
+            ->addSelect('c');
 
         if ($name) {
-            $requete->andWhere('u.nom LIKE :search or u.prenom LIKE :search')
-                ->setParameter('search', '%' . $name . '%');
+            $queryBuilder->andWhere('e.nom LIKE :name OR e.prenom LIKE :name')
+                ->setParameter('name', '%' . $name . '%');
         }
 
         if ($classe) {
-            $requete->andWhere('u.classe = :classe')
-                ->setParameter('classe', $classe->getId());
+            $queryBuilder->andWhere('c.nom LIKE :classe')
+                ->setParameter('classe', '%' . $classe . '%');
         }
 
-        return $requete->getQuery()->getResult();
+        return $queryBuilder
+            ->orderBy('e.nom', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**

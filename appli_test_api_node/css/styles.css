@@ -1,0 +1,148 @@
+/* Reset basique pour réinitialiser certains styles par défaut */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Style global du body */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Mise en forme du titre principal */
+h1 {
+    color: #4CAF50;
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 30px;
+}
+
+/* Mise en forme de la navbar */
+nav {
+    background-color: #333;
+    padding: 10px;
+    text-align: center;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+nav a {
+    color: white;
+    padding: 10px 20px;
+    margin: 0 15px;
+    font-size: 18px;
+    display: inline-block;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+/* Supprimer le soulignement des liens */
+a {
+    text-decoration: none;
+}
+
+/* Hover effect for links */
+nav a:hover {
+    background-color: #4CAF50;
+}
+
+/* Style pour les titres des sections */
+h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Style pour les formulaires */
+div {
+    margin-bottom: 15px;
+}
+
+/* Style des labels et des champs de formulaire */
+label {
+    font-size: 18px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+input[type="text"], select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+
+input[type="text"]:focus, select:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+/* Style du bouton */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Style du tableau */
+table {
+    width: 100%;
+    margin-top: 30px;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+table th, table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+table td strong {
+    font-weight: bold;
+}
+
+
+table th {
+    background-color: #f2f2f2;
+    color: #4CAF50;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Style spécifique à la section d'édition de classe */
+main {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Style pour la table de contenu */
+#contenu {
+    margin-top: 20px;
+}

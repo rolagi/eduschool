@@ -47,6 +47,10 @@ class ClasseController extends AbstractController
     {
         $classe = $classeRepository->find($id);
 
+        foreach($classe->getEleves() as $eleve){
+            $eleve->setClasse(null);
+        }
+
         $entityManager->remove($classe);
         $entityManager->flush();
 

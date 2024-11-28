@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\NoteRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\NoteRepository")
@@ -21,6 +22,7 @@ class Note
 
     /**
      * @ORM\Column(type="float")
+     * @Groups({"eleve:read"})
      */
     private $note;
 

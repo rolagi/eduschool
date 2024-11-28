@@ -6,6 +6,8 @@
 
     <h1>Page de gestion des élèves</h1>
 
+    <a href="{{ path('app_eleve_search') }}"><h2>Faire une recherche</h2></a>
+
     <div id="eleves">
         {% for niveau in niveaux %}
             <div class="niveau">
@@ -16,7 +18,10 @@
                             <h2 class="carlito-bold">{{ classe.nom }}</h2>
                             <div>
                                 {% for eleve in classe.eleves %}
-                                    <a href="{{ path('app_eleve_show',{id: eleve.id})}}"><p class="carlito-regular" id="eleve">{{ eleve.prenom }} <b>{{ eleve.nom }}</b></p></a>
+                                    <a href="{{ path('app_eleve_show', {id: eleve.id}) }}">
+                                        <p class="carlito-regular" id="eleve">{{ eleve.prenom }} <b>{{ eleve.nom }}</b>
+                                        </p>
+                                    </a>
                                 {% endfor %}
                             </div>
                         </div>
@@ -25,17 +30,4 @@
             </div>
         {% endfor %}
     </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.querySelectorAll(".toggle").forEach(function (toggleElement) {
-                toggleElement.addEventListener("click", function () {
-                    const content = this.nextElementSibling;
-                    if (content) {
-                        content.style.display = content.style.display === "none" ? "block" : "none";
-                    }
-                });
-            });
-        });
-    </script>
 {% endblock %}

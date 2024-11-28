@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recherche d'élèves{% endblock %}
+
+{% block body %}
+
+    <h1>Recherche d'un élève</h1>
+
+    <input type="text" id="search" placeholder="Rechercher un élève par son nom ou prénom" onkeyup="filterEleves()">
+    <select id="classFilter" onchange="filterEleves()">
+        <option value="">Toutes les classes</option>
+        {% for classe in classes %}
+            <option value="{{ classe.nom }}">{{ classe.nom }}</option>
+        {% endfor %}
+    </select>
+
+    <table id="eleves">
+        <tr>
+            <th>Élève</th>
+            <th>Classe</th>
+        </tr>
+        {% for eleve in eleves %}
+            <tr class="eleve" data-nom="{{ eleve.nom }}" data-prenom="{{ eleve.prenom }}"
+                data-classe="{{ eleve.classe ? eleve.classe.nom : '' }}">
+                <td>{{ eleve.prenom }} <b>{{ eleve.nom }}</b></td>
+                <td>{% if eleve.classe %}{{ eleve.classe.nom }}{% endif %}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        function filterEleves() {
+            var input = document.getElementById('search').value.toLowerCase();
+            var classFilter = document.getElementById('classFilter').value.toLowerCase();
+            var rows = document.querySelectorAll('#eleves .eleve');
+
+            rows.forEach(function (row) {
+                var nom = row.getAttribute('data-nom').toLowerCase();
+                var prenom = row.getAttribute('data-prenom').toLowerCase();
+                var classe = row.getAttribute('data-classe').toLowerCase();
+
+                if ((nom.includes(input) || prenom.includes(input)) && (classFilter === '' || classe === classFilter)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+    </script>
+{% endblock %}

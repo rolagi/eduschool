@@ -2,5 +2,12 @@ api_platform:
     title: 'API de gestion des notes'
     description: 'Une API pour gérer les notes des élèves'
     version: '1.0.0'
+    defaults:
+        pagination_enabled: false
     mapping:
         paths: ['%kernel.project_dir%/src/Entity']
+    formats:
+        json: [ 'application/json' ]
+        jsonld: [ 'application/json' ]
+        jsonapi: [ 'application/json' ]
+        html: [ 'text/html' ]

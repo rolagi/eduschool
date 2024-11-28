@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UtilisateurRepository")
@@ -44,11 +45,13 @@ abstract class Utilisateur implements UserInterface, PasswordAuthenticatedUserIn
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"eleve:read","eleve:write"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"eleve:read","eleve:write"})
      */
     private $prenom;
 

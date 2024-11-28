@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles.css">
+    <title>Élèves</title>
+</head>
+<body>
+<main>
+    <a href="/"><h1>Eduschool</h1></a>
+    <nav>
+        <a href="classes">Classes</a>
+        <a href="matieres">Matières</a>
+        <a href="eleves">Élèves</a>
+    </nav>
+
+    <h2>Rechercher un élève</h2>
+    <div>
+        <label for="nom">Nom ou prénom de l'élève :</label>
+        <input type="text" id="nom" name="nom" placeholder="Nom ou prénom de l'élève" required>
+    </div>
+    <div>
+        <label for="nom">Classe de l'élève :</label>
+        <input type="text" id="classe" name="classe" placeholder="Classe de l'élève" required>
+    </div>
+    <div>
+        <button id="submitButton" type="submit">Rechercher</button>
+    </div>
+
+    <h2>Liste des élèves</h2>
+    <table id="contenu">
+        <tr>
+            <th>Nom Complet</th>
+            <th>Classe</th>
+        </tr>
+    </table>
+</main>
+<script src="../js/eleves.js"></script>
+</body>
+</html>

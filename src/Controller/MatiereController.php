@@ -42,11 +42,15 @@ class MatiereController extends AbstractController
     }
 
     /**
-     * @Route("/matieres/{id}", name="app_matiere_delete")
+     * @Route("/matieres/{id}/delete", name="app_matiere_delete")
      */
     public function delete(Request $request, EntityManagerInterface $entityManager, MatiereRepository $matiereRepository, int $id): Response
     {
         $matiere = $matiereRepository->find($id);
+
+        foreach($matiere->getNotes() as $note){
+            $note->setMatiere(null);
+        }
 
         $entityManager->remove($matiere);
         $entityManager->flush();

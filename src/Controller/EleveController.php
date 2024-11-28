@@ -7,11 +7,10 @@ use App\Form\EleveType;
 use App\Form\NoteType;
 use App\Repository\ClasseRepository;
 use App\Repository\EleveRepository;
-use App\Repository\MatiereRepository;
 use App\Repository\NiveauRepository;
-use App\Repository\NoteRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,6 +29,22 @@ class EleveController extends AbstractController
         return $this->render('eleve/index.html.twig', [
             'controller_name' => 'EleveController',
             'niveaux' => $niveaux,
+        ]);
+    }
+
+    /**
+     * @Route("/eleves/search", name="app_eleve_search")
+     */
+    public function search(Request $request, EleveRepository $eleveRepository, ClasseRepository $classeRepository): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_PROFESSEUR');
+
+        $eleves = $eleveRepository->findAll();
+        $classes = $classeRepository->findAll();
+
+        return $this->render('eleve/search.html.twig', [
+            'eleves' => $eleves,
+            'classes' => $classes,
         ]);
     }
 
@@ -118,5 +133,18 @@ class EleveController extends AbstractController
         } else {
             throw $this->createAccessDeniedException('Accès non autorisé');
         }
+    }
+
+    /**
+     * @Route("/api/eleves/search",name="api_eleve_search")
+     */
+    public function apiSearch(Request $request, EleveRepository $eleveRepository, ClasseRepository $classeRepository, string $name, string $classe): JsonResponse
+    {
+        $name = $request->get("name");
+        $idClasse = $request->get("classe");
+
+        $resultat = $eleveRepository->search($name, $idClasse);
+
+        return new JsonResponse($resultat);
     }
 }

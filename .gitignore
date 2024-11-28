@@ -17,3 +17,5 @@
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
+
+/appli_test_api_node/node_modules

@@ -8,9 +8,13 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Annotation\ApiResource;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClasseRepository")
- * @ApiResource()
+ * @ApiResource(
+ *     normalizationContext={"groups"={"classe:read"}},
+*      denormalizationContext={"groups"={"classe:write"}},
+ * )
  */
 class Classe
 {
@@ -18,21 +22,25 @@ class Classe
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"classe:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
+     * @Groups({"classe:read","eleve:read","classe:write"})
      */
     private $nom;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Eleve", mappedBy="classe")
+     * @Groups({"classe:read"})
      */
     private $eleves;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Niveau", inversedBy="classes")
+     * @Groups({"classe:read","classe:write"})
      */
     private $niveau;
 

@@ -71,15 +71,14 @@ class ProfesseurController extends AbstractController
     }
 
     /**
-     * @Route("/professeur/supprimer/{id}", name="app_professeur_delete")
+     * @Route("/professeur/{id}/delete", name="app_professeur_delete")
      */
     public function supprimer(int $id, ProfesseurRepository $professeurRepository, EntityManagerInterface $entityManager): Response
     {
         $professeur = $professeurRepository->find($id);
 
-        if (!$professeur) {
-            $this->addFlash('error', 'Professeur introuvable.');
-            return $this->redirectToRoute('app_professeur_ajouter');
+        foreach($professeur->getNotes() as $note){
+            $note->setEvaluateur(null);
         }
 
         $entityManager->remove($professeur);

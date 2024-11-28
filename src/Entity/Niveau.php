@@ -11,7 +11,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\NiveauRepository")
- * @ApiResource()
+ * @ApiResource(
+ *      normalizationContext={"groups"={"niveau:read"}}
+ *  )
  */
 class Niveau
 {
@@ -19,6 +21,7 @@ class Niveau
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"niveau:read"})
      */
     private $id;
 
@@ -29,6 +32,7 @@ class Niveau
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"classe:read","niveau:read"})
      */
     private $nom;
 

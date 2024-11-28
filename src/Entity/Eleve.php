@@ -3,24 +3,37 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\EleveRepository;
+use App\Repository\ClasseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EleveRepository")
- * @ApiResource()
+ * @ApiResource(
+ *          itemOperations={
+ *              "search"={
+ *              "method"="GET",
+ *              "path"="/eleves/search",
+ *              "controller"=App\Controller\EleveController::class
+ *          }
+ *          },
+ *          normalizationContext={"groups"={"eleve:read"}},
+ *          denormalizationContext={"groups"={"eleve:write"}},
+ * )
  */
 class Eleve extends Utilisateur
 {
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="eleve")
+     * @Groups({"eleve:read"})
      */
     private $notes;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Classe", inversedBy="eleves")
+     * @Groups({"eleve:read","eleve:write"})
      */
     private $classe;
 

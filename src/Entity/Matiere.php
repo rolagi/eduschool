@@ -6,11 +6,15 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\MatiereRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MatiereRepository")
- * @ApiResource()
+ * @ApiResource(
+ *          normalizationContext={"groups"={"matiere:read"}},
+ *          denormalizationContext={"groups"={"matiere:write"}},
+ * )
  */
 class Matiere
 {
@@ -23,6 +27,7 @@ class Matiere
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
+     * @Groups({"matiere:read","matiere:write"})
      */
     private $nom;
 

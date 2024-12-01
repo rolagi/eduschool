@@ -2,6 +2,24 @@
 ## Application de gestion d'un lycée
 (ne pas tenir compte du nom pourri de l'application)
 
+### Lancement du serveur
+
+Pour pouvoir lancer le serveur Symfony
+``
+composer update
+composer recipes:install symfony/webpack-encore-bundle --force -v
+npm install
+npm run build
+symfony serve
+``
+
+Pour pouvoir lancer le serveur NodeJS
+``
+cd appli_test_api_node
+npm install
+npm start
+``
+
 ### Message
 
 Le fichier contenant la base de données est à la racine du projet mais il doit être à placer dans /var/
